@@ -4,17 +4,9 @@
 # --------------------------
 import os
 from libqtile import widget
-from .helpers import custom_widgets, path
+from .helpers import path, font
 from .ui.theme import colors
 
-
-default_params = {
-    'font': '{} {}'.format(
-        os.getenv('QTILE_FONT_FAMILY', 'RobotoMono Nerd Font'),
-        os.getenv('QTILE_FONT_STYLE', 'Regular')
-        ),
-    'size': int(os.getenv('QTILE_FONT_SIZE', 14)), 
-}
 
 def spacer(**config):
     return widget.Spacer(
@@ -43,7 +35,7 @@ chadBar_widgets = {
         margin_y=None,
         mouse_callbacks={},
         rotate=0.0,
-        scale=0.8
+        scale=0.9
     ),
     'GroupBox': widget.GroupBox(
         active=colors.scheme['base0D'],
@@ -53,8 +45,8 @@ chadBar_widgets = {
         center_aligned=True,
         disable_drag=False,
         fmt='{}',
-        font=default_params['font'],
-        fontsize=default_params['size'],
+        font=font.FAMILY,
+        fontsize=font.SIZE_GROUPS,
         foreground=colors.scheme['base05'],
         hide_unused=False,
         highlight_color=[colors.scheme['base00']],
@@ -63,7 +55,7 @@ chadBar_widgets = {
         invert_mouse_wheel=True,
         margin=3,
         margin_x=None,
-        margin_y=4,
+        margin_y=None,
         markup=True,
         max_chars=0,
         mouse_callbacks={},
@@ -91,26 +83,6 @@ chadBar_widgets = {
         use_mouse_wheel=True,
         visible_groups=None
     ),
-    'CurrentLayout': custom_widgets.CurrentLayout(
-        background=None,
-        fmt='{}',
-        font='RobotoMono Nerd Font Bold',
-        fontshadow=None,
-        fontsize=14,
-        foreground=colors.scheme['base0A'],
-        markup=True,
-        max_chars=0,
-        mouse_callbacks={},
-        padding=None,
-        scroll=False,
-        scroll_clear=False,
-        scroll_delay=2,
-        scroll_fixed_width=False,
-        scroll_hide=False,
-        scroll_interval=0.1,
-        scroll_repeat=True,
-        scroll_step=1
-    ),
     'CurrentLayoutIcon': widget.CurrentLayoutIcon(
         custom_icon_paths=[path.LAYOUTS],
         scale=0.8
@@ -118,8 +90,8 @@ chadBar_widgets = {
     'CPUlabel': widget.TextBox(
         background=colors.scheme['base0B'],
         foreground=colors.scheme['base00'],
-        font='RobotoMono Nerd Font Regular',
-        fontsize=14,
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
         padding=None,
         text='CPU',
     ),
@@ -127,10 +99,25 @@ chadBar_widgets = {
         background=colors.scheme['base02'],
         foreground=colors.scheme['base05'],
         fmt=' {} ',
-        font='RobotoMono Nerd Font Regular',
-        fontsize=14,
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
         format='{load_percent}',
         update_interval=1.0,
+    ),
+    'RAM': widget.Memory(
+        background=None,
+        fmt=' {}',  # nf-fae-chip
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        foreground=colors.scheme['base0D'],
+        format='{MemUsed: .0f}{mm}',
+        markup=True,
+        max_chars=0,
+        measure_mem='M',
+        measure_swap='G',
+        mouse_callbacks={},
+        padding=None,
+        update_interval=1.0
     ),
     'Systray': widget.Systray(
         background=colors.scheme['base00'],
