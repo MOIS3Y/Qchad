@@ -65,14 +65,6 @@ chadBar_widgets = {
         padding_x=None,
         padding_y=None,
         rounded=True,
-        scroll=False,
-        scroll_clear=False,
-        scroll_delay=2,
-        scroll_fixed_width=False,
-        scroll_hide=False,
-        scroll_interval=0.1,
-        scroll_repeat=True,
-        scroll_step=1,
         spacing=19,
         this_current_screen_border=colors.scheme['base0B'],
         this_screen_border=colors.scheme['base0D'],
@@ -119,10 +111,42 @@ chadBar_widgets = {
         padding=None,
         update_interval=1.0
     ),
+    'Timelabel': widget.TextBox(
+        background=colors.lightness(colors.scheme['base0D'], -4),
+        foreground=colors.scheme['base00'],
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        padding=None,
+        text=' 󰥔 ',  # nf-md-clock
+    ),
+    'Time': widget.Clock(
+        background=colors.scheme['base0D'],
+        foreground=colors.scheme['base00'],
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        fmt='{}',
+        format='%H:%M %a',
+        markup=True,
+        max_chars=0,
+        mouse_callbacks={},
+        padding=None,
+        timezone=None,  # default system TZ
+        update_interval=1.0,
+    ),
     'Systray': widget.Systray(
         background=colors.scheme['base00'],
         icon_size=20,
         mouse_callbacks={},
         padding=25
+    ),
+    'Power': widget.Image(
+        background=None,
+        filename=path.POWER,
+        margin=3,
+        margin_x=None,
+        margin_y=None,
+        mouse_callbacks={},
+        rotate=0.0,
+        scale=0.8
     ),
 }

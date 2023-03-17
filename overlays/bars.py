@@ -24,11 +24,18 @@ chadBar = bar.Bar(
         chadBar_widgets['CPU'],
         separator(linewidth=0, padding=10, size_percent=100),
         chadBar_widgets['RAM'],
+        separator(linewidth=0, padding=10, size_percent=100),
+        chadBar_widgets['Timelabel'],
+        chadBar_widgets['Time'],
+        separator(linewidth=0, padding=20, size_percent=100),
+        chadBar_widgets['Power'],
+        
     ],
+    # ------- bar properties ------
     size=23,
     background=colors.scheme['base00'],
     border_color=colors.scheme['base00'],
     border_width=7,
-    margin=4,
+    margin=4,  # gaps around bar
     opacity=1,
 )

@@ -2,21 +2,25 @@
 # █▀▀ █▀█ ░█░ █▀█
 # ---------------
 import os
-from ..ui.theme import colors
 
+
+theme = os.getenv('QTILE_COLOR_SCHEME', 'catppuccin_mocha')
+os_id = os.getenv('QTILE_OS_ID', 'void')
 
 # Absolute path to qtile config:
 CONFIG = os.getenv('QTILE_PATH_CONFIG', os.path.expanduser('~/.config/qtile'))
 
 # Relative path to assets:
-ASSETS = '/overlays/assets'
+ASSETS = f'{CONFIG}/assets'
 
 # Relative path to assets:
-SCRIPTS = '/overlays/scripts'
+SCRIPTS = f'{CONFIG}/scripts'
 
 # Get theme-specific layout icons path:
-LAYOUTS = CONFIG + ASSETS +'/icons/layouts/{}'.format(colors.scheme['scheme'])
+LAYOUTS = f'{ASSETS}/icons/layouts/{theme}'
 
 # Get theme-specific logo:
-LOGO = CONFIG + ASSETS + '/icons/logo/{}/{}.png'.format(
-    colors.scheme['scheme'], os.getenv('QTILE_OS_ID', 'void'))
+LOGO = f'{ASSETS}/icons/logo/{os_id}_{theme}.png'
+
+# Get theme-specific power-button:
+POWER = f'{ASSETS}/icons/system/power_button_{theme}.png'

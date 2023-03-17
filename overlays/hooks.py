@@ -10,7 +10,7 @@ from .helpers import path
 
 @hook.subscribe.startup_once
 def start_once():
-    autostart = '{}/{}/autostart.sh'.format(path.CONFIG, path.SCRIPTS)
+    autostart = f'{path.SCRIPTS}/shell/autostart.sh'
     subprocess.Popen([autostart])
 
 
