@@ -5,32 +5,55 @@
 import os
 from libqtile import layout
 from libqtile.config import Match
+
 from .ui.theme import colors
 
 # Layouts and layout rules
 layout_conf = {
     'border_focus': colors.scheme['base0D'],
+    'border_normal': colors.scheme['base00'],
     'border_width': 1,
     'margin': 4
 }
 
 layouts = [
     layout.Bsp(
-        **layout_conf,
-        fair =False,
-        grow_amount = 10,
-        lower_right = True,
-        margin_on_single = 4,
-        ratio = 1.6,
-        warp_clients = False
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_on_single=False,
+        border_width=1,
+        fair=False,
+        grow_amount=10,
+        margin=4,
+        margin_on_single=None,
+        lower_right=True,
+        ratio=1.6,
+        warp_clients=False,
     ),
-    # layout.Columns(),
+    layout.Columns(
+        border_focus=colors.scheme['base0D'],
+        border_focus_stack=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_normal_stack=colors.scheme['base00'],
+        border_on_single=False,
+        border_width=1,
+        fair=False,
+        grow_amount=10,
+        insert_position=1,  # 0 or 1
+        margin=4,
+        margin_on_single=None,
+        num_columns=2,
+        split=True,
+        wrap_focus_columns=True,
+        wrap_focus_rows=True,
+        wrap_focus_stacks=True
+    ),
     layout.Floating(
         **layout_conf,
         fullscreen_border_width = 0,
         max_border_width = 0
     ),
-    # layout.Matrix(),
+    layout.Matrix(),
     # layout.Max(),
     # layout.MonadTall(),
     # layout.MonadThreeCol(),

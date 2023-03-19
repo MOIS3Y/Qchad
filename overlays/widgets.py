@@ -4,8 +4,10 @@
 # --------------------------
 import os
 from libqtile import widget
-from .helpers import path, font
+from libqtile.lazy import lazy
+from .helpers import path, font, custom_widgets
 from .ui.theme import colors
+from .ui.switcher import update_theme
 
 
 def spacer(**config):
@@ -148,5 +150,51 @@ chadBar_widgets = {
         mouse_callbacks={},
         rotate=0.0,
         scale=0.8
+    ),
+}
+
+
+extra_widgets = {
+    'KeyboardLayout': custom_widgets.KeyboardLayout(
+        background=colors.scheme['base00'],
+        foreground=colors.scheme['base0D'],
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        text='UNK',
+        update_interval=0.1,
+        padding=20
+    ),
+    'PulseVolume': widget.PulseVolume(
+        background=None,
+        cardid=None,
+        channel='Master',
+        check_mute_command='None',
+        check_mute_string='[off]',
+        device='device',
+        emoji=False,
+        fmt='  {}',
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        foreground=colors.scheme['base0A'],
+        get_volume_command=None,
+        limit_max_volume=True,
+        markup=True,
+        max_chars=0,
+        mouse_callbacks={},
+        padding=3,
+        step=5,
+        theme_path=None,
+        volume_app=None,
+        volume_down_command=None,
+        volume_up_command=None
+    ),
+    'Switcher': widget.TextBox(
+        background=colors.scheme['base0B'],
+        foreground=colors.scheme['base00'],
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        mouse_callbacks={'Button1': update_theme},
+        padding=None,
+        text='SWT',
     ),
 }

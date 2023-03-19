@@ -1,6 +1,7 @@
 # █▀▀ █░█ █▀ ▀█▀ █▀█ █▀▄▀█   █░█░█ █ █▀▄ █▀▀ █▀▀ ▀█▀ █▀
 # █▄▄ █▄█ ▄█ ░█░ █▄█ █░▀░█   ▀▄▀▄▀ █ █▄▀ █▄█ ██▄ ░█░ ▄█
 # -----------------------------------------------------
+import subprocess
 from libqtile import bar, hook
 from libqtile.log_utils import logger
 from libqtile.widget import base
@@ -52,3 +53,29 @@ class CurrentLayout(base._TextBox):
     def finalize(self):
         self.remove_hooks()
         base._TextBox.finalize(self)
+
+
+class KeyboardLayout(base.ThreadPoolText):
+    """
+    Qtile has an unresolved issue with keymaps working on a layout
+    keyboard other than en. Many duplicate keymaps for different layouts
+    But this, as you understand, violates the DRY principle, 
+    I found a good solution which uses the xkb-switch utility to switch.
+    https://www.reddit.com/r/archlinux/comments/sjgfxj/comment/ij6twko/
+
+    The source code of the class is taken from LeKSuS-04 
+    for which many thanks to him:
+    https://github.com/LeKSuS-04/my-arch/blob/master/dotfiles/qtile/screens.py
+    """
+    
+    def __init__(self, **config):
+        super().__init__(**config)
+        self.add_callbacks({"Button1": self.next_keyboard})
+
+    def poll(self):
+        return subprocess.check_output(
+            'xkb-switch').decode().strip()[:2].upper()
+
+    def next_keyboard(self):
+        subprocess.run(['xkb-switch', '-n'])
+        self.tick()
