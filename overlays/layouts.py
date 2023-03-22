@@ -53,11 +53,68 @@ layouts = [
         fullscreen_border_width = 0,
         max_border_width = 0
     ),
-    layout.Matrix(),
-    # layout.Max(),
-    # layout.MonadTall(),
-    # layout.MonadThreeCol(),
-    # layout.MonadWide(),
+    layout.Matrix(
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        columns=2,
+        margin=4
+    ),
+    layout.Max(
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        margin=4
+    ),
+    layout.MonadTall(
+        align=0,
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        change_ratio=0.5,
+        change_size=20,
+        margin=4,
+        max_ratio=0.75,
+        min_ratio=0.25,
+        min_secondary_size=85,  # px
+        new_client_position='after_current',
+        ratio=0.6,  # %
+        single_border_width=1,
+        single_margin=4        
+    ),
+    layout.MonadThreeCol(
+        align=0,
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        change_ratio=0.5,
+        change_size=20,
+        main_centered=True,
+        margin=4,
+        max_ratio=0.75,
+        min_ratio=0.25,
+        min_secondary_size=85,
+        new_client_position='top',
+        ratio=0.5,
+        single_border_width=1,
+        single_margin=4 
+    ),
+    layout.MonadWide(
+        align=0,
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        change_ratio=0.5,
+        change_size=20,
+        margin=4,
+        max_ratio=0.75,
+        min_ratio=0.25,
+        min_secondary_size=85,
+        new_client_position='after_current',
+        ratio=0.5,
+        single_border_width=1,
+        single_margin=4       
+    ),
     # layout.RatioTile(),
     # layout.Slice(),
     # layout.Spiral(),
