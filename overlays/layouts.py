@@ -6,6 +6,7 @@ import os
 from libqtile import layout
 from libqtile.config import Match
 
+from .helpers import font
 from .ui.theme import colors
 
 # Layouts and layout rules
@@ -57,7 +58,7 @@ layouts = [
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
-        columns=2,
+        columns=3,
         margin=4
     ),
     layout.Max(
@@ -115,14 +116,107 @@ layouts = [
         single_border_width=1,
         single_margin=4       
     ),
-    # layout.RatioTile(),
-    # layout.Slice(),
-    # layout.Spiral(),
-    # layout.Stack(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.RatioTile(
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        fancy=False,
+        margin=4,
+        ratio=1.618,
+        ratio_increment=0.1
+    ),
+    layout.Slice(
+        # fallback=layout.max.Max(),  #  set non-slice area
+        # match=Match(wm_class='telegram-desktop'),  # check xprop
+        # side='left',  # left,right,top,bottom
+        # width=360
+    ),
+    layout.Spiral(
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        clockwise=True,
+        main_pane='left',  # left,right,top,bottom
+        main_pane_ratio=None,
+        margin=4,
+        new_client_position='top',  # after_current,before_current,top,bottom
+        ratio=0.6180469715698392,
+        ratio_increment=0.1
+    ),
+    layout.Stack(
+        autosplit=False,
+        border_focus=colors.scheme['base0D'],
+        border_focus_stack=colors.scheme['base0C'],
+        border_normal=colors.scheme['base00'],
+        border_normal_stack=colors.scheme['base00'],
+        border_width=1,
+        fair=None,
+        margin=4,
+        num_stacks=2
+    ),
+    layout.Tile(
+        add_after_last=False,
+        add_on_top=True,
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_on_single=True,
+        border_width=1,
+        expand=True,
+        margin=4,
+        margin_on_single=True,
+        master_length=1,
+        master_match=None,  # or Match()
+        max_ratio=0.85,
+        min_ratio=0.15,
+        ratio=0.618,
+        ratio_increment=0.05,
+        shift_windows=False
+    ),
+    layout.TreeTab(
+        active_bg=colors.scheme['base0D'],
+        active_fg=colors.scheme['base00'],
+        bg_color=colors.scheme['base01'],
+        border_width=1,
+        font=font.FAMILY,
+        fontshadow=None,
+        fontsize=font.SIZE_WIDGETS,
+        inactive_bg=colors.scheme['base02'],
+        inactive_fg=colors.scheme['base05'],
+        level_shift=90,
+        margin_left=6,
+        margin_y=90,
+        padding_left=6,
+        padding_x=6,
+        padding_y=2,
+        panel_width=150,
+        place_right=False,
+        previous_on_rm=True,
+        section_bottom=6,
+        section_fg=colors.scheme['base0D'],
+        section_fontsize=font.SIZE_WIDGETS,
+        section_left=6,
+        section_padding=4,
+        section_top=4,
+        sections=['Main', 'Extra'],
+        urgent_bg=colors.scheme['base08'],
+        urgent_fg=colors.scheme['base00'],
+        vspace=4
+    ),
+    layout.VerticalTile(
+        border_focus=colors.scheme['base0D'],
+        border_normal=colors.scheme['base00'],
+        border_width=1,
+        margin=4,
+        single_border_width=1,
+        single_margin=4
+    ),
+    layout.Zoomy(
+        columnwidth=150,
+        margin=4,
+        property_big='1.0',
+        property_name='ZOOM',
+        property_small='0.1'
+    )
 ]
 
 floating_layout = layout.Floating(
@@ -135,5 +229,5 @@ floating_layout = layout.Floating(
         Match(title='branchdialog'),
         Match(title='pinentry'),
     ],
-    border_focus=colors.scheme['base0D']
+    border_focus=colors.scheme['base0C']
 )
