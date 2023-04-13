@@ -15,7 +15,7 @@ import env
 # --------------------------------
 
 from overlays.groups import groups
-from overlays.hooks import hooks
+# from overlays.hooks import hooks
 from overlays.keys import mod, keys
 from overlays.layouts import layouts, floating_layout
 from overlays.mouse import mouse
@@ -43,5 +43,5 @@ wmname = 'LG3D'
 # --------------------
 
  # just comment out the hook to disable
-hooks.get('start_once', None)
+# hooks.get('start_once', None)
 

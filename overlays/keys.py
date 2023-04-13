@@ -20,6 +20,10 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "h", lazy.layout.left()),
     ([mod], "l", lazy.layout.right()),
 
+    # Switch between group:
+    ([mod], "left", lazy.screen.prev_group()),
+    ([mod], "right", lazy.screen.next_group()),
+
     # Change window sizes (MonadTall)
     ([mod, "shift"], "l", lazy.layout.grow()),
     ([mod, "shift"], "h", lazy.layout.shrink()),
@@ -43,7 +47,8 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "comma", lazy.prev_screen()),
 
     # Restart Qtile
-    ([mod, "control"], "r", lazy.restart()),
+    # ([mod, "control"], "r", lazy.restart()),
+    ([mod, "control"], "r", lazy.reload_config()),
     ([mod, "control"], "q", lazy.shutdown()),
     ([mod], "r", lazy.spawncmd()),
 

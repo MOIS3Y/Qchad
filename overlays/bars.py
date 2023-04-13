@@ -19,9 +19,12 @@ chadBar = bar.Bar(
         spacer(lenght=3),
         # ------- right ------
         chadBar_widgets['Systray'],
+        separator(linewidth=0, padding=20, size_percent=100),
         extra_widgets['Switcher'],
         separator(linewidth=0, padding=30, size_percent=100),
-        extra_widgets['PulseVolume'],
+        extra_widgets['Backlight'],
+        separator(linewidth=0, padding=30, size_percent=100),
+        extra_widgets["PulseVolume"],
         separator(linewidth=0, padding=30, size_percent=100),
         chadBar_widgets['CPUlabel'],
         chadBar_widgets['CPU'],
@@ -33,7 +36,6 @@ chadBar = bar.Bar(
         chadBar_widgets['Time'],
         separator(linewidth=0, padding=20, size_percent=100),
         chadBar_widgets['Power'],
-        
     ],
     # ------- bar properties ------
     size=23,

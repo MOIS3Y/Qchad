@@ -37,7 +37,7 @@ chadBar_widgets = {
         margin_y=None,
         mouse_callbacks={},
         rotate=0.0,
-        scale=0.9
+        scale=1.0
     ),
     'GroupBox': widget.GroupBox(
         active=colors.scheme['base0D'],
@@ -155,6 +155,16 @@ chadBar_widgets = {
 
 
 extra_widgets = {
+    'Backlight': widget.Backlight(
+        background=None,
+        backlight_name='intel_backlight',
+        change_command='brightnessctl set {}%',
+        fmt='  {}',  # nf-fa-adjust
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        foreground=colors.scheme['base08'],
+        step=5,
+    ),
     'KeyboardLayout': custom_widgets.KeyboardLayout(
         background=colors.scheme['base00'],
         foreground=colors.scheme['base0D'],
@@ -170,7 +180,7 @@ extra_widgets = {
         channel='Master',
         check_mute_command='None',
         check_mute_string='[off]',
-        device='device',
+        device='default',
         emoji=False,
         fmt='  {}',
         font=font.FAMILY,
@@ -188,6 +198,30 @@ extra_widgets = {
         volume_down_command=None,
         volume_up_command=None
     ),
+    'Volume': widget.Volume(
+        background=None,
+        cardid=None,
+        channel='Master',
+        check_mute_command='None',
+        check_mute_string='[off]',
+        device='default',
+        emoji=False,
+        fmt='  {}',
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        foreground=colors.scheme['base0A'],
+        get_volume_command=None,
+        limit_max_volume=True,
+        markup=True,
+        max_chars=0,
+        mouse_callbacks={},
+        padding=3,
+        step=5,
+        theme_path=None,
+        volume_app=None,
+        volume_down_command=None,
+        volume_up_command=None     
+    ),
     'Switcher': widget.TextBox(
         background=colors.scheme['base0B'],
         foreground=colors.scheme['base00'],
@@ -195,6 +229,6 @@ extra_widgets = {
         fontsize=font.SIZE_WIDGETS,
         mouse_callbacks={'Button1': update_theme},
         padding=None,
-        text='SWT',
+        text='SWT ',
     ),
 }
