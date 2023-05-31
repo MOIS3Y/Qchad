@@ -68,7 +68,7 @@ color_schemes = {
         "scheme": "catppuccin_mocha",
         "author": "https://github.com/catppuccin/catppuccin",
         "base00": "#11111b", # crust
-        "base01": "#181825", # mantle
+        "base01": "#1e1e2e", # base
         "base02": "#313244", # surface0
         "base03": "#45475a", # surface1
         "base04": "#585b70", # surface2

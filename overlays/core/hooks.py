@@ -5,7 +5,7 @@
 import os
 import subprocess
 from libqtile import hook
-from .helpers import path
+from overlays.helpers import path
 
 
 @hook.subscribe.startup_once

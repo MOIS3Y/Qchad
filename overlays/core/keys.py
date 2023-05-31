@@ -6,7 +6,8 @@ import os
 from libqtile.config import Key
 from libqtile.command import lazy
 from libqtile.utils import guess_terminal
-from .helpers.utils import utils
+
+from overlays.helpers.utils import utils
 
 
 mod = os.getenv('QTILE_MOD_KEY', 'mod4')

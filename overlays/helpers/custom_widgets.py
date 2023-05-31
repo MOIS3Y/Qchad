@@ -2,6 +2,7 @@
 # █▄▄ █▄█ ▄█ ░█░ █▄█ █░▀░█   ▀▄▀▄▀ █ █▄▀ █▄█ ██▄ ░█░ ▄█
 # -----------------------------------------------------
 import subprocess
+
 from libqtile import bar, hook
 from libqtile.log_utils import logger
 from libqtile.widget import base
@@ -79,3 +80,13 @@ class KeyboardLayout(base.ThreadPoolText):
     def next_keyboard(self):
         subprocess.run(['xkb-switch', '-n'])
         self.tick()
+
+
+class Caffeine(base.ThreadPoolText):
+
+    def __init__(self, **config):
+        super().__init__(**config)
+        self.add_callbacks({"Button1": self.caffeine_toggle})
+
+    def caffeine_toggle(self):
+        pass

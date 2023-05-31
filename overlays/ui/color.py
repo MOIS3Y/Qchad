@@ -1,9 +1,11 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# █▀▄ █▀█ █▀▀ █▀ ▀
+# █▄▀ █▄█ █▄▄ ▄█ ▄
+# ----------------
 """The module contains the class Color
 which can store color scheme like base16,
 change colors according to the HSL color model using public methods,
-and also convert different color schemes 
+and also convert different color schemes
 (as it does, the built-in colorsys module):
     hex => rgb
     rgb => hex
@@ -20,19 +22,23 @@ liability, whether in an action of contract, tort or otherwise, arising from,
 out of or in connection with the software or the use or other dealings in the
 software.
 """
+import colorsys
 
+
+# █▀▄▀█ █▀▀ ▀█▀ ▄▀█ ▀
+# █░▀░█ ██▄ ░█░ █▀█ ▄
+# -------------------
 __author__ = "MOIS3Y"
 __credits__ = ["Stepan Zhukovsky"]
 __license__ = "GPL v3.0"
-__version__ = "0.0.1"
+__version__ = "0.2.0"
 __maintainer__ = "Stepan Zhukovsky"
 __email__ = "stepan@zhukovsky.me"
 __status__ = "Production"
 
 
-# █▀▀ █▀█ █░░ █▀█ █▀█
-# █▄▄ █▄█ █▄▄ █▄█ █▀▄
-# https://github.com/MOIS3Y/helpers/colors
+# █▀▀ █▀█ █░░ █▀█ █▀█ ▀
+# █▄▄ █▄█ █▄▄ █▄█ █▀▄ ▄
 # -------------------
 class Color(object):
     """This class is intended to be stored in an attribute
@@ -59,23 +65,27 @@ class Color(object):
 
     For saturation, lightness, the shift argument takes the offset percentage
     relative to the current color (-100, 100), if you pass a percentage
-    that will go beyond frame, then the parameter being changed will take 
+    that will go beyond frame, then the parameter being changed will take
     the maximum or minimum possible value.
     For hue, the absolute value of the degree that H can
     be changed this channel (-360, 360).
+
         Examples:
+        ---------
+
         color_scheme = some_base16_theme
-        color = Color(color_scheme)
+
+        color = Color(**color_scheme)
+
         shift_color = color.scheme['base08']                =>  #b4befe
-        hue_color = Color.hue(shift_color, 20)              =>  #b6b4fe
+
+        hue_color = Color.hue(shift_color, -60)             =>  #b4fef4
+
         saturation = Color.saturation(shift_color, 20)      =>  #b3bdff
+
         lightness_color = Color.lightness(shift_color, 20)  =>  #e6eaff
     """
-    ONE_THIRD = 1.0/3.0
-    ONE_SIXTH = 1.0/6.0
-    TWO_THIRD = 2.0/3.0
-
-    def __init__(self, **color_scheme):
+    def __init__(self, **color_scheme) -> dict:
         """Stores the color scheme as an attribute of the scheme class
         preferably in base16 simple example:
         themes = {
@@ -102,11 +112,11 @@ class Color(object):
             },
             #....
         }
-        color_scheme = Color(themes['onedark'])
+        color_scheme = Color(themes['catppuccin_mocha'])
         """
         self.scheme = color_scheme
 
-    def hex_to_rgb(self, color):
+    def hex_to_rgb(self, color: str) -> tuple:
         """
         Args:
             color (_str_): '#b4befe'
@@ -117,7 +127,7 @@ class Color(object):
         rgb = tuple(int(hex_value[item:item + 2], 16) for item in (0, 2, 4))
         return rgb  # (RGB)
 
-    def rgb_to_hex(self, *rgb):
+    def rgb_to_hex(self, *rgb) -> str:
         """
         Args:                 R    G    B
             *rgb (_tuple_): (180, 190, 254)
@@ -127,101 +137,56 @@ class Color(object):
         r, g, b = [int(channel) for channel in rgb]
         return '#{:02x}{:02x}{:02x}'.format(r, g, b)  # #HEX
 
-    def hex_to_hsl(self, color):
+    def hex_to_hsl(self, color: str) -> tuple:
         """
         Args:
             color (_str_): '#b4befe'
         Returns:       H    S    L
-            _tuple_: (0.64 0.97 0.85)  
+            _tuple_: (0.64 0.97 0.85)
             16 decimal places, rounding is not performed to preserve precision.
         """
         rgb = self.hex_to_rgb(color)
         return (self.rgb_to_hsl(*rgb))
 
-    def hsl_to_hex(self, *hsl):
+    def hsl_to_hex(self, *hsl) -> str:
         """
         Args:                  H    S    L
             *hsl (_tuple_): (0.64 0.97 0.85)
         Returns:
-            _str_: '#b4befe' 
+            _str_: '#b4befe'
         """
         rgb = self.hsl_to_rgb(*hsl)
         return (self.rgb_to_hex(*rgb))  # #HEX
 
-    def rgb_to_hsl(self, *rgb):
+    def rgb_to_hsl(self, *rgb) -> tuple:
         """
         Args:                 R    G    B
             *rgb (_tuple_): (180, 190, 254)
         Returns:
-            _tuple_: (0.64 0.97 0.85)  
+            _tuple_: (0.64 0.97 0.85)
             16 decimal places, rounding is not performed to preserve precision.
         """
         # Normalize R, G, B values:
         r, g, b = [item / 255.0 for item in rgb]
-        # Const - max, min, range color:
-        max_color = max(r, g, b)
-        min_color = min(r, g, b)
-        sum_color = (max_color + min_color)
-        range_color = (max_color - min_color)
-        # L - lightness (intensity):
-        l = sum_color / 2.0
-        # S - Saturation:
-        if min_color == max_color:
-            return 0.0, 0.0, l
-        if l <= 0.5:
-            s = range_color / sum_color
-        else:
-            s = range_color / (2.0 - sum_color)
-        # Modify R G B need for Hue:
-        rc = (max_color - r) / range_color
-        gc = (max_color - g) / range_color
-        bc = (max_color - b) / range_color
-        # H - Hue:
-        if r == max_color:
-            h = bc - gc
-        elif g == max_color:
-            h = 2.0 + rc - bc
-        else:
-            h = 4.0 + gc - rc
-        h = (h / 6.0) % 1.0
+        h, l, s = [item for item in colorsys.rgb_to_hls(r, g, b)]  # noqa: E741
         return (h, s, l)
 
-    def hsl_to_rgb(self, *hsl):
+    def hsl_to_rgb(self, *hsl) -> tuple:
         """
         Args:                  H    S    L
             *hsl (_tuple_): (0.64 0.97 0.85)
         Returns:       R    G    B
             _tuple_: (180, 190, 254)
         """
-        h, s, l = [channel for channel in hsl]
-        if s == 0.0:
-            return l, l, l
-        if l <= 0.5:
-            m2 = l * (1.0 + s)
-        else:
-            m2 = l + s - (l * s)
-        m1 = 2.0 * l - m2
-        return (
-            round(self._v(m1, m2, h + self.ONE_THIRD)*255),  # R
-            round(self._v(m1, m2, h)*255),                   # G
-            round(self._v(m1, m2, h - self.ONE_THIRD)*255)   # B
-        )
-
-    def _v(self, m1, m2, hue):
-        hue = hue % 1.0
-        if hue < self.ONE_SIXTH:
-            return m1 + (m2 - m1) * hue * 6.0
-        if hue < 0.5:
-            return m2
-        if hue < self.TWO_THIRD:
-            return m1 + (m2 - m1) * (self.TWO_THIRD - hue ) * 6.0
-        return m1
+        h, s, l = [channel for channel in hsl]   # noqa: E741
+        r, g, b = [round(item * 255) for item in colorsys.hls_to_rgb(h, l, s)]
+        return (r, g, b)
 
     @staticmethod
-    def _check_range(channel):
+    def _check_range(channel: float) -> int | float:
         return 0 if channel < 0 else (1 if channel > 1 else channel)
 
-    def hue(self, color, shift):
+    def hue(self, color: str, shift: int) -> str:
         """position in the spectrum 0 -> 360 degrees
         takes an int number and shift the current position by that number:
         to increase, the number must be positive (10)
@@ -233,16 +198,16 @@ class Color(object):
         Returns:
             _str_: #feb4b4
         """
-        h, s, l = [channel for channel in self.hex_to_hsl(color)]
+        h, s, l = [channel for channel in self.hex_to_hsl(color)]  # noqa: E741
         if shift < 0:
             h = self._check_range(((h * 3.6 - abs(shift) / 100) / 3.6))
         else:
             h = self._check_range(((h * 3.6 + shift / 100) / 3.6))
         return self.hsl_to_hex(h, s, l)
 
-    def saturation(self, color, shift):
+    def saturation(self, color: str, shift: int) -> str:
         """color saturation 0 -> 100%
-        takes an int (percentage) and shifts the current position 
+        takes an int (percentage) and shifts the current position
         by that percentage:
         to increase, the number must be positive (20)
         to decrease, the number must be negative (-20)
@@ -253,16 +218,16 @@ class Color(object):
         Returns:
             _str_: '#b3bdff'
         """
-        h, s, l = [channel for channel in self.hex_to_hsl(color)]
+        h, s, l = [channel for channel in self.hex_to_hsl(color)]  # noqa: E741
         if shift < 0:
             s = self._check_range((s - (abs(shift) / 100)))
         else:
             s = self._check_range((s + (shift / 100)))
         return self.hsl_to_hex(h, s, l)
 
-    def lightness(self, color, shift):
+    def lightness(self, color: str, shift: int) -> str:
         """color lightness 0 -> 100%
-        takes an int (percentage) and shifts the current position 
+        takes an int (percentage) and shifts the current position
         by that percentage:
         to increase, the number must be positive (20)
         to decrease, the number must be negative (-20)
@@ -273,10 +238,9 @@ class Color(object):
         Returns:
             _str_: '#b3bdff'
         """
-        h, s, l = [channel for channel in self.hex_to_hsl(color)]
+        h, s, l = [channel for channel in self.hex_to_hsl(color)]  # noqa: E741
         if shift < 0:
-            l = self._check_range((l - (abs(shift) / 100)))
+            l = self._check_range((l - (abs(shift) / 100)))  # noqa: E741
         else:
-            l = self._check_range((l + (shift / 100)))
+            l = self._check_range((l + (shift / 100)))  # noqa: E741
         return self.hsl_to_hex(h, s, l)
-

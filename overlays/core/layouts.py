@@ -6,8 +6,8 @@ import os
 from libqtile import layout
 from libqtile.config import Match
 
-from .helpers import font
-from .ui.theme import colors
+from overlays.helpers import font
+from overlays.ui.theme import colors
 
 # Layouts and layout rules
 layout_conf = {
