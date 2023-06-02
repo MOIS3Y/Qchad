@@ -18,6 +18,7 @@ Dependencies:
 -- -- -- -- 
 - psutil
 - xidlehook
+- dunst
 """
 
 
@@ -54,6 +55,21 @@ def toggle_process(process):
     subprocess.run(['kill', flag, pid])
 
 
+def make_caffeine_notify(process):
+    if process.status() != 'stopped':
+        subprocess.run([
+            'dunstify',
+            'Caffeine',
+            'xidlehook - started'
+        ])
+    else:
+        subprocess.run([
+            'dunstify',
+            'Caffeine',
+            'xidlehook - paused'
+        ])
+
+
 def make_caffeine_icon(process):
     if process.status() != 'stopped':
         return '󰾪 '  # nf-md-coffee_off
@@ -69,21 +85,22 @@ def caffeine(name, flag=False):
         if flag:
             toggle_process(process)
             process = find_process(name)
+            make_caffeine_notify(process)
             return make_caffeine_icon(process)
         else:
             return make_caffeine_icon(process)
-    except AttributeError as error:
+    except AttributeError:
         return '󰾫 '  # nf-md-coffee_off_outline
 
 
 def main():
     # -- -- -- -- parser -- -- -- --
     parser = argparse.ArgumentParser(
-        description="caffeine app for hidlehook"
+        description="caffeine app for xidlehook"
     )
     parser.add_argument(
         '--toggle',
-        help='toggle hidlehook status',
+        help='toggle xidlehook status',
         action='store_true'
     )
     args = parser.parse_args()

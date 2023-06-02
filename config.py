@@ -10,7 +10,6 @@ from overlays import env
 # wm configuration parts
 from overlays import (
     groups,
-    hooks,
     keys,
     mod,
     layouts,

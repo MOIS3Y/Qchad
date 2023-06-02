@@ -24,6 +24,8 @@ which will be given to hotkeys.
 import os
 from libqtile.utils import guess_terminal
 
+from overlays.helpers import path
+
 
 # nixGL apps:
 def nixGL(app):
@@ -47,6 +49,28 @@ utils = {
     'telegram': nixGL('telegram-desktop'),
 
     # Normal utils:
-    'mattermost': 'matermost-desktop',
+    'menu': 'rofi -show drun',
+    'screenshot': 'flameshot gui',
+    'mattermost': 'mattermost-desktop',
     'fmanager': 'ranger',
+
+    # Hardware utils:
+    'volume_raise': 'pactl set-sink-volume @DEFAULT_SINK@ +5%',
+    'volume_lower': 'pactl set-sink-volume @DEFAULT_SINK@ -5%',
+    'volume_muted': 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
+    'brightness_up': 'brightnessctl set +10%',
+    'brightness_down': 'brightnessctl set 10%-',
+}
+
+
+autostart = {
+    'nm-applet': ['nm-applet'],
+    'xfce-polkit': ['/usr/libexec/xfce-polkit'],
+    'cbatticon': ['cbatticon'],
+    'dunst': ['dunst'],
+    'picom': ['picom'],
+    'xidlehook':[
+        f'{path.SCRIPTS}/xidlehook.py',
+        f'--lockscreen={path.SCRIPTS}/i3lock.py'],
+    # 'touchegg': ['touchegg', '--client']
 }

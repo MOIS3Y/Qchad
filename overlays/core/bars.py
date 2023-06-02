@@ -17,6 +17,8 @@ from .widgets import (
 
 separator_20px = separator(linewidth=0, padding=20, size_percent=100)
 
+separator_10px = separator(linewidth=0, padding=10, size_percent=100)
+
 current_widgets = [
     # ------- left ------
     common_widgets['Logo'],
@@ -35,10 +37,12 @@ current_widgets = [
     monitoring_widgets['CPU'],
     separator_20px,
     monitoring_widgets['RAM'],
-    separator_20px,
+    separator_10px,
     monitoring_widgets['DFLabel'],
-    monitoring_widgets['DFBox'],
-    separator_20px,
+    monitoring_widgets['DFRoot'],
+    monitoring_widgets['DFHome'],
+    monitoring_widgets['DFNix'],
+    separator_10px,
     common_widgets['TrayLabel'],
     common_widgets['TrayBox'],
     separator_20px,
@@ -46,6 +50,7 @@ current_widgets = [
     extra_widgets['KeyboardLayout'],
     common_widgets['Timelabel'],
     common_widgets['Time'],
+    common_widgets['DateBox'],
     separator_20px,
     common_widgets['Power'],
 ]
@@ -54,7 +59,7 @@ current_widgets = [
 chadBar = bar.Bar(
     widgets=current_widgets,
     # ------- bar properties ------
-    size=21,
+    size=23,
     background=colors.scheme['base00'],
     border_color=colors.scheme['base00'],
     border_width=7,

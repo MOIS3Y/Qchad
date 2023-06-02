@@ -17,7 +17,7 @@ from overlays.ui.switcher import update_theme
 
 # █▀▀ █▀▄▀█ █▀█ ▀█▀ █▄█ ▀
 # ██▄ █░▀░█ █▀▀ ░█░ ░█░ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- -- --
 def spacer(**config):
     return widget.Spacer(
         background=config.get('background', None),
@@ -38,7 +38,7 @@ def separator(**config):
 
 # █▀▀ █▀█ █▀▄▀█ █▀▄▀█ █▀█ █▄░█ ▀
 # █▄▄ █▄█ █░▀░█ █░▀░█ █▄█ █░▀█ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- -- -- -- -- 
 common_widgets = {
     'Logo': widget.Image(
         background=None,
@@ -106,13 +106,39 @@ common_widgets = {
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',
-        format='%H:%M %a',
+        format='%H:%M',
         markup=True,
         max_chars=0,
         mouse_callbacks={},
         padding=None,
         timezone=None,  # default system TZ
         update_interval=1.0,
+    ),
+    'DateBox': widget.WidgetBox(
+        background=colors.scheme['base0D'],
+        foreground=colors.scheme['base00'],
+        close_button_location='right',
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        start_opened=True,
+        text_closed='  ',
+        text_open='  ',
+        widgets=[
+            widget.Clock(
+                background=colors.scheme['base0D'],
+                foreground=colors.scheme['base00'],
+                font=font.FAMILY,
+                fontsize=font.SIZE_WIDGETS,
+                fmt='{}',
+                format='%d-%m-%y %a',
+                markup=True,
+                max_chars=0,
+                mouse_callbacks={},
+                padding=None,
+                timezone=None,  # default system TZ
+                update_interval=1.0,
+            ),
+        ]
     ),
     'TrayLabel': widget.TextBox(
         background=colors.scheme['base0E'],
@@ -151,7 +177,11 @@ common_widgets = {
         margin=3,
         margin_x=None,
         margin_y=None,
-        mouse_callbacks={},
+        mouse_callbacks={
+            "Button1": lambda: qtile.cmd_spawn(
+                path.SCRIPTS + "/power_menu.py"
+            )
+        },
         rotate=0.0,
         scale=0.8
     )
@@ -160,7 +190,7 @@ common_widgets = {
 
 # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█ █ █▄░█ █▀▀ ▀
 # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄ █ █░▀█ █▄█ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- --
 monitoring_widgets = {
     'CPULabel': widget.TextBox(
         background=colors.scheme['base0B'],
@@ -195,79 +225,67 @@ monitoring_widgets = {
         update_interval=1.0
     ),
     'DFLabel': widget.TextBox(
-        background=colors.scheme['base0D'],
-        foreground=colors.scheme['base00'],
+        background=colors.scheme['base00'],
+        foreground=colors.scheme['base0D'],
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         padding=None,
-        text=' 󰋊 '  # nf-md-harddisk
+        text='󰋊 '  # nf-md-harddisk
     ),
-    'DFBox': widget.WidgetBox(
-        background=colors.scheme['base01'],
-        foreground=colors.scheme['base05'],
-        close_button_location='right',
+    'DFRoot': widget.DF(
+        background=colors.scheme['base00'],
+        foreground=colors.scheme['base0D'],
+        fmt='{} ',
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
-        start_opened=True,
-        text_closed='     ',
-        text_open='     ',
-        widgets=[
-            widget.DF(
-                background=colors.scheme['base01'],
-                fmt=' {}',
-                font=font.FAMILY,
-                fontsize=font.SIZE_WIDGETS,
-                foreground=colors.scheme['base05'],
-                format='ROOT: {uf:.0f}{m}|{r:.0f}%',
-                measure='G',
-                mouse_callbacks={},
-                padding=None,
-                partition='/',
-                update_interval=60,
-                visible_on_warn=True,
-                warn_color=colors.scheme['base08'],
-                warn_space=2
-            ),
-            widget.DF(
-                background=colors.scheme['base01'],
-                fmt=' {}',
-                font=font.FAMILY,
-                fontsize=font.SIZE_WIDGETS,
-                foreground=colors.scheme['base05'],
-                format='HOME: {uf:.0f}{m}|{r:.0f}%',
-                measure='G',
-                mouse_callbacks={},
-                padding=None,
-                partition='/home',
-                update_interval=60,
-                visible_on_warn=True,
-                warn_color=colors.scheme['base08'],
-                warn_space=10
-            ),
-            widget.DF(
-                background=colors.scheme['base01'],
-                fmt=' {}',
-                font=font.FAMILY,
-                fontsize=font.SIZE_WIDGETS,
-                foreground=colors.scheme['base05'],
-                format='NIX: {uf:.0f}{m}|{r:.0f}%',
-                measure='G',
-                mouse_callbacks={},
-                padding=None,
-                partition='/nix',
-                update_interval=60,
-                visible_on_warn=True,
-                warn_color=colors.scheme['base08'],
-                warn_space=10
-            ),
-        ]
+        format='ROOT: {uf:.0f}{m}|{r:.0f}%',
+        measure='G',
+        mouse_callbacks={},
+        padding=None,
+        partition='/',
+        update_interval=60,
+        visible_on_warn=True,
+        warn_color=colors.scheme['base08'],
+        warn_space=3
+    ),
+    'DFHome': widget.DF(
+        background=colors.scheme['base00'],
+        foreground=colors.scheme['base0D'],
+        fmt='{} ',
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        format='HOME: {uf:.0f}{m}|{r:.0f}%',
+        measure='G',
+        mouse_callbacks={},
+        padding=None,
+        partition='/home',
+        update_interval=60,
+        visible_on_warn=True,
+        warn_color=colors.scheme['base08'],
+        warn_space=10
+    ),
+    'DFNix':widget.DF(
+        background=colors.scheme['base00'],
+        foreground=colors.scheme['base0D'],
+        fmt='{} ',
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        format='NIX: {uf:.0f}{m}|{r:.0f}%',
+        measure='G',
+        mouse_callbacks={},
+        padding=None,
+        partition='/nix',
+        update_interval=60,
+        visible_on_warn=True,
+        warn_color=colors.scheme['base08'],
+        warn_space=10
     ),
 }
 
 
 # █▀ █▀█ █░█ █▄░█ █▀▄ ▀
 # ▄█ █▄█ █▄█ █░▀█ █▄▀ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- --
 sound_widgets = {
     'PulseVolume': widget.PulseVolume(
         background=None,
@@ -322,7 +340,7 @@ sound_widgets = {
 
 # █░░ ▄▀█ █▀█ ▀█▀ █▀█ █▀█ ▀
 # █▄▄ █▀█ █▀▀ ░█░ █▄█ █▀▀ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- -- --
 laptop_widgets = {
     'Backlight': widget.Backlight(
         background=None,
@@ -339,7 +357,7 @@ laptop_widgets = {
 
 # █▀▀ ▀▄▀ ▀█▀ █▀█ ▄▀█ ▀
 # ██▄ █░█ ░█░ █▀▄ █▀█ ▄
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- --
 extra_widgets = {
     'KeyboardLayout': custom_widgets.KeyboardLayout(
         background=colors.scheme['base00'],
@@ -356,11 +374,11 @@ extra_widgets = {
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         func=lambda: subprocess.check_output(
-            path.SCRIPTS + "/lock/caffeine.py"
+            path.SCRIPTS + "/caffeine.py"
         ).decode("utf-8"),
         mouse_callbacks={
             "Button1": lambda: qtile.cmd_spawn(
-                path.SCRIPTS + "/lock/caffeine.py --toggle"
+                path.SCRIPTS + "/caffeine.py --toggle"
             )
         },
         update_interval=1

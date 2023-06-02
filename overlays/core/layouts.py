@@ -1,15 +1,18 @@
-# █░░ ▄▀█ █▄█ █▀█ █░█ ▀█▀ █▀
-# █▄▄ █▀█ ░█░ █▄█ █▄█ ░█░ ▄█
-# https://docs.qtile.org/en/latest/manual/ref/layouts.html
-# --------------------------
+"""
+█░░ ▄▀█ █▄█ █▀█ █░█ ▀█▀ █▀ ▀
+█▄▄ █▀█ ░█░ █▄█ █▄█ ░█░ ▄█ ▄
+https://docs.qtile.org/en/latest/manual/ref/layouts.html
+-- -- -- -- -- -- -- -- -- --
+"""
 import os
+
 from libqtile import layout
 from libqtile.config import Match
 
 from overlays.helpers import font
 from overlays.ui.theme import colors
 
-# Layouts and layout rules
+# Layouts and layout rules:
 layout_conf = {
     'border_focus': colors.scheme['base0D'],
     'border_normal': colors.scheme['base00'],
@@ -17,8 +20,9 @@ layout_conf = {
     'margin': 4
 }
 
-layouts = [
-    layout.Bsp(
+# Preconfigured layouts:
+core_layouts = {
+    'bsp': layout.Bsp(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_on_single=False,
@@ -31,7 +35,7 @@ layouts = [
         ratio=1.6,
         warp_clients=False,
     ),
-    layout.Columns(
+    'columns': layout.Columns(
         border_focus=colors.scheme['base0D'],
         border_focus_stack=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
@@ -49,25 +53,25 @@ layouts = [
         wrap_focus_rows=True,
         wrap_focus_stacks=True
     ),
-    layout.Floating(
+    'floating': layout.Floating(
         **layout_conf,
         fullscreen_border_width = 0,
         max_border_width = 0
     ),
-    layout.Matrix(
+    'matrix': layout.Matrix(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
         columns=3,
         margin=4
     ),
-    layout.Max(
+    'max': layout.Max(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
         margin=4
     ),
-    layout.MonadTall(
+    'monadtall': layout.MonadTall(
         align=0,
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
@@ -83,7 +87,7 @@ layouts = [
         single_border_width=1,
         single_margin=4        
     ),
-    layout.MonadThreeCol(
+    'monadthreecol': layout.MonadThreeCol(
         align=0,
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
@@ -100,7 +104,7 @@ layouts = [
         single_border_width=1,
         single_margin=4 
     ),
-    layout.MonadWide(
+    'monadwide': layout.MonadWide(
         align=0,
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
@@ -116,7 +120,7 @@ layouts = [
         single_border_width=1,
         single_margin=4       
     ),
-    layout.RatioTile(
+    'ratiotile': layout.RatioTile(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
@@ -125,13 +129,13 @@ layouts = [
         ratio=1.618,
         ratio_increment=0.1
     ),
-    layout.Slice(
+    'slice': layout.Slice(
         # fallback=layout.max.Max(),  #  set non-slice area
         # match=Match(wm_class='telegram-desktop'),  # check xprop
         # side='left',  # left,right,top,bottom
         # width=360
     ),
-    layout.Spiral(
+    'spiral': layout.Spiral(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
@@ -143,7 +147,7 @@ layouts = [
         ratio=0.6180469715698392,
         ratio_increment=0.1
     ),
-    layout.Stack(
+    'stack': layout.Stack(
         autosplit=False,
         border_focus=colors.scheme['base0D'],
         border_focus_stack=colors.scheme['base0C'],
@@ -154,7 +158,7 @@ layouts = [
         margin=4,
         num_stacks=2
     ),
-    layout.Tile(
+    'tile': layout.Tile(
         add_after_last=False,
         add_on_top=True,
         border_focus=colors.scheme['base0D'],
@@ -172,7 +176,7 @@ layouts = [
         ratio_increment=0.05,
         shift_windows=False
     ),
-    layout.TreeTab(
+    'treetab': layout.TreeTab(
         active_bg=colors.scheme['base0D'],
         active_fg=colors.scheme['base00'],
         bg_color=colors.scheme['base01'],
@@ -202,7 +206,7 @@ layouts = [
         urgent_fg=colors.scheme['base00'],
         vspace=4
     ),
-    layout.VerticalTile(
+    'verticaltile': layout.VerticalTile(
         border_focus=colors.scheme['base0D'],
         border_normal=colors.scheme['base00'],
         border_width=1,
@@ -210,14 +214,32 @@ layouts = [
         single_border_width=1,
         single_margin=4
     ),
-    layout.Zoomy(
-        columnwidth=150,
+    'zoomy': layout.Zoomy(
+        columnwidth=400,
         margin=4,
         property_big='1.0',
         property_name='ZOOM',
         property_small='0.1'
     )
-]
+}
+
+
+def set_layouts(**core_layouts) -> list:
+    # If QTILE_LAYOUTS is set but no layout is in core_layouts
+    # bsp and floating will be set
+    default_layouts = [core_layouts['bsp'], core_layouts['floating']]
+    current_layouts = []
+    env_layouts = os.getenv('QTILE_LAYOUTS', 'bsp,floating').lower().split(',')
+    for layout in env_layouts:
+        if layout in core_layouts:
+            current_layouts.append(core_layouts[layout])
+            if not current_layouts:
+                current_layouts = default_layouts
+    return current_layouts
+
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+layouts: list = set_layouts(**core_layouts)
+
 
 floating_layout = layout.Floating(
     float_rules=[

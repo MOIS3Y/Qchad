@@ -77,7 +77,7 @@ import sys
 # -- -- -- -- -- -- -- 
 
 # require for relative imports:
-qchad_dir = str(pathlib.Path(__file__).parents[2])
+qchad_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(qchad_dir)
 
 # import current color scheme and font:

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import pathlib
-import subprocess
 """
 ▀▄▀ █ █▀▄ █░░ █▀▀ █░█ █▀█ █▀█ █▄▀ ▀
 █░█ █ █▄▀ █▄▄ ██▄ █▀█ █▄█ █▄█ █░█ ▄
@@ -43,6 +41,12 @@ __maintainer__ = "Stepan Zhukovsky"
 __email__ = "stepan@zhukovsky.me"
 __status__ = "Production"
 
+
+import argparse
+import pathlib
+import subprocess
+
+from libqtile.log_utils import logger
 
 def get_connected_displays():
     """
@@ -98,13 +102,11 @@ def i3lock():
     return cmd
 
 
-def xidlehook_run():
-    displays = get_connected_displays()
-    primary= displays[0]
+def xidlehook_run(lockscreen):
     suspend_message = "Computer will suspend very soon because of inactivity"
 
     try:
-        subprocess.run([
+        subprocess.Popen([
             # bin:
             'xidlehook',
             # Don't lock when there's a fullscreen application:
@@ -124,7 +126,7 @@ def xidlehook_run():
             # Un dim & lock after 10 more seconds:
             '--timer',
             '10',
-            f'{i3lock()}; sleep 1; {dimmer("up")}',
+            f'{dimmer("up")}{lockscreen}',
             '',
             # Finally, suspend an hour after it locks:
             '--timer',
@@ -134,12 +136,23 @@ def xidlehook_run():
         ])
         print("xidlehook is running")
     except FileNotFoundError as error:
+        logger.warning(f"XIDLEHOOK ERROR: {error}")
         print(f"xidlehook not found.\n{error}")
 
 
 # entrypoint:
 def main():
-    xidlehook_run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-l',
+        '--lockscreen',
+        default='i3lock',
+        help='Path to lockscreen exec file'
+    )
+    args = parser.parse_args()
+    print(args.lockscreen)
+
+    xidlehook_run(args.lockscreen)
 
 
 if __name__ == "__main__":

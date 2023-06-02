@@ -10,86 +10,72 @@ Additional groups will appear in the list and will be available after launch
 applications associated with these groups.
 -- -- -- -- -- -- -- --
 """
-
 from libqtile.config import Key, Group, Match
 from libqtile.command import lazy
-
-from .keys import mod, keys
 
 
 groups = [
     Group(
-        name="WEB",  
-        matches=[Match(wm_class=["Firefox"])],
+        name='WEB',  
+        matches=[Match(wm_class=['Firefox'])],
         exclusive=False,
-        layout="bsp",
+        layout='bsp',
         persist=True,
         init=True,
-        label=""  # nf-fa-firefox
+        label=''  # nf-fa-firefox
     ),
     Group(
-        name="TERM",  
+        name='TERM',  
         matches=[],
         exclusive=False,
-        layout="bsp",
+        layout='bsp',
         persist=True,
         init=True,
-        label=""  # nf-fa-get_pocket
+        label=''  # nf-fa-get_pocket
     ),
     Group(
-        name="CHAT",  
-        matches=[Match(wm_class=["Mattermost", "TelegramDesktop"])],
+        name='CHAT',  
+        matches=[Match(wm_class=['Mattermost', 'TelegramDesktop'])],
         exclusive=False,
-        layout="bsp",
+        layout='bsp',
         persist=True,
         init=True,
         label=""  # nf-fa-envelope
     ),
     Group(
-        name="DEV",  
+        name='DEV',  
         matches=[Match(wm_class=["Code"])],
         exclusive=False,
-        layout="bsp",
+        layout='bsp',
         persist=True,
         init=True,
-        label=""  # nf-fa-slack
+        label=''  # nf-fa-slack
     ),
     Group(
-        name="EXTRA",  
+        name='EXTRA',  
         matches=[],
         exclusive=False,
-        layout="bsp",
+        layout='bsp',
         persist=True,
         init=True,
-        label=""  # nf-fa-dollar
+        label=''  # nf-fa-dollar
     ),
     Group(
-        name="CALL",  
-        matches=[Match(wm_class=["zoom", "linphone"])],
+        name='CALL',  
+        matches=[Match(wm_class=['zoom', 'linphone'])],
         exclusive=False,
-        layout="floating",
+        layout='floating',
         persist=False,
         init=False,
-        label=""  # nf-fa-phone
+        label=''  # nf-fa-phone
     ),
     Group(
-        name="ART",  
-        matches=[Match(wm_class=["Inkscape"])],
+        name='ART',  
+        matches=[Match(wm_class=['Inkscape'])],
         exclusive=False,
-        layout="floating",
+        layout='floating',
         persist=False,
         init=False,
-        label=""  # nf-fa-paint_brush
+        label=''  # nf-fa-paint_brush
     )
 ]
-
-# expand keybindings (mod_key[1 2 3 ...]) to switch between groups:
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-for i, group in enumerate(groups):
-    actual_key = str(i + 1)
-    keys.extend([
-        # Switch to workspace N
-        Key([mod], actual_key, lazy.group[group.name].toscreen()),
-        # Send window to workspace N
-        Key([mod, "shift"], actual_key, lazy.window.togroup(group.name))
-    ])

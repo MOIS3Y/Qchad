@@ -46,6 +46,9 @@ environment = {
 
     # Set default keys:
     'QTILE_MOD_KEY': 'mod4',
+
+    # Autostart apps:
+    'QTILE_AUTOSTART': 'nm-applet,picom,dunst,xfce-polkit,cbatticon,xidlehook',
     
     # Set interface properties:
     'QTILE_COLOR_SCHEME': 'catppuccin_mocha',
@@ -65,5 +68,5 @@ def set_env(**environment_vars):
             logger.warning(f"Set env by default: {env_key}: {env_var}")
 
 
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 set_env(**environment)
