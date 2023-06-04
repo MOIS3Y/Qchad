@@ -17,10 +17,10 @@ from overlays.helpers.utils import utils
 mod = os.getenv('QTILE_MOD_KEY', 'mod4')
 
 
+keys = [
     # █▀▀ █▀▀ █▄░█ █▀▀ █▀█ ▄▀█ █░░ ▀
     # █▄█ ██▄ █░▀█ ██▄ █▀▄ █▀█ █▄▄ ▄
 
-keys = [
     # -- -- -- -- qtile -- -- -- --
     Key(
         [mod, 'control'], 'r',
@@ -202,6 +202,11 @@ keys = [
     Key(
         [mod], 'f',
         lazy.spawn(utils['fmanager']),
+        desc='File manager'
+    ),
+    Key(
+        [], 'Print',
+        lazy.spawn(utils['screenshot']),
         desc='File manager'
     ),
 ]

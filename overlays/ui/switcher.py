@@ -3,12 +3,10 @@
 ░█░ █▀█ ██▄ █░▀░█ ██▄  ▄█ ▀▄▀▄▀ █ ░█░ █▄▄ █▀█ ██▄ █▀▄ ▄
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 """
-
 import os
 
 from libqtile.config import Key
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
 
 
 # TODO: this is prototype for realtime switch color scheme:

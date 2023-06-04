@@ -27,11 +27,11 @@ icons = {
 
 
 commands = {
-    'shutdown': 'dunstify "Power menu" "shutdown" -u critical',
-    'reboot': 'dunstify "Power menu" "reboot" -u critical',
-    'hibernate': 'dunstify "Power menu" "hibernate" -u critical',
-    'logout': 'dunstify "Power menu" "logout" -u critical',
-    'suspend': 'dunstify "Power menu" "suspend" -u normal',
+    'shutdown': 'loginctl poweroff',
+    'reboot': 'loginctl reboot',
+    'hibernate': 'loginctl hibernate',
+    'logout': 'loginctl terminate-session self',
+    'suspend': 'loginctl suspend',
     'lock_screen': 'dunstify "Power menu" "lock" -u normal'  
 }
 

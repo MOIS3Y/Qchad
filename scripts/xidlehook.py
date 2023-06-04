@@ -5,21 +5,43 @@
 █░█ █ █▄▀ █▄▄ ██▄ █▀█ █▄█ █▄█ █░█ ▄
 https://github.com/jD91mZM2/xidlehook
 -- -- -- -- -- -- -- -- -- -- -- --
+
+usage: xidlehook.py [-h] [-l LOCKSCREEN]
+
+options:
+  -h, --help            show this help message and exit
+  -l LOCKSCREEN, --lockscreen LOCKSCREEN
+                        Path to lockscreen exec file
+
 xidlehook is a general-purpose replacement for xautolock.
 It executes a command when the computer has been idle
 for a specified amount of time.
 
-I install it from nixpkgs:
+I install this by building the xbps package with xbps-src.
+The template for building xidlehook 0.10.0 
+is available in my void-packages fork:
+https://github.com/MOIS3Y/void-packages/tree/voidpkgs
+
+It can also be installed from nixpkgs:
 nix-env -iA nixpkgs.xidlehook
+
+I had to create an xbps package just because none of the
+autorun ways didn't work for me:
+    ~/.xsession
+    runit service
+    qtile hook
+I believe it has something to do with dbus and pulseaudio autostart.
+I check the log when I tried to create a runit service.
+There are certain problems with utilities using pulseaudio
+if you install them from nixpkgs on a nonNixOS distribution.
+Although I do not rule out that the problem only affects 
+nonNixOS distributions without systemd.
 
 Autorun executes Qtile WM.
 For control and temporary suspension I use Caffeine widget.
 The feature of this script is the smooth fading of the screen
 and screen lock with customized i3lock-color script
 which adheres to the Qtile color scheme.
-
-It can be used standalone for this you need to change
-path to screen lock executable (i3lock function)
 
 Dependencies:
 -- -- -- -- 
@@ -43,10 +65,8 @@ __status__ = "Production"
 
 
 import argparse
-import pathlib
 import subprocess
 
-from libqtile.log_utils import logger
 
 def get_connected_displays():
     """
@@ -61,7 +81,7 @@ def get_connected_displays():
     return [line.split()[0] for line in properties if " connected " in line]
 
 
-def dimmer(direction):
+def dimmer(direction=None):
     """
     allows to smoothly turn the screen on and off.
     variable dim can be set to speed.
@@ -76,35 +96,27 @@ def dimmer(direction):
     cmd_list = []
 
     if direction == 'up':
-        full = 0
+        start = 1
         target = 101
-        dim = 5
-    else:
-        full = 100
+        dim = 1
+    elif direction == 'down':
+        start = 100
         target = -1
         dim = -1
+    else:
+        start = 100
+        target = 101
+        dim = 1
 
-    for step in range(full, target, dim):
+    for step in range(start, target, dim):
         cmd = f'xrandr --output {primary_display} --brightness {step/100}; '
         cmd_list.append(cmd)
 
     return (''.join(cmd_list))
 
 
-def i3lock():
-    # qchad:
-    # -- --
-    cmd = str(pathlib.Path(__file__).parents[0]) + '/i3lock.py'
-
-    # standalone:
-    # -- -- -- --
-    # cmd = 'i3lock'
-    return cmd
-
-
 def xidlehook_run(lockscreen):
     suspend_message = "Computer will suspend very soon because of inactivity"
-
     try:
         subprocess.Popen([
             # bin:
@@ -115,20 +127,21 @@ def xidlehook_run(lockscreen):
             '--not-when-audio',
             # Send notification alert:
             '--timer',
-            '10',
+            '600',
             f'dunstify "Power" "{suspend_message}" -u normal',
             '',
-            # Dim the screen after 10 seconds, undim if user becomes active:
+            # Dim the screen after 15 seconds & lock,
+            # un dim if user becomes active:
             '--timer',
-            '10',
-            f'{dimmer("down")}',
-            f'{dimmer("up")}',
-            # Un dim & lock after 10 more seconds:
+            '15',
+            f'{dimmer("down")}{lockscreen}',
+            f'{dimmer()}',
+            # Wait 90 seconds or un dim if user becomes active:
             '--timer',
-            '10',
-            f'{dimmer("up")}{lockscreen}',
+            '90',
             '',
-            # Finally, suspend an hour after it locks:
+            f'{dimmer("up")}',
+            # Finally, suspend after it locks:
             '--timer',
             '10',
             'loginctl suspend',
@@ -136,7 +149,6 @@ def xidlehook_run(lockscreen):
         ])
         print("xidlehook is running")
     except FileNotFoundError as error:
-        logger.warning(f"XIDLEHOOK ERROR: {error}")
         print(f"xidlehook not found.\n{error}")
 
 
@@ -150,7 +162,6 @@ def main():
         help='Path to lockscreen exec file'
     )
     args = parser.parse_args()
-    print(args.lockscreen)
 
     xidlehook_run(args.lockscreen)
 

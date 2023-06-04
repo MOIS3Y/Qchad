@@ -61,16 +61,3 @@ utils = {
     'brightness_up': 'brightnessctl set +10%',
     'brightness_down': 'brightnessctl set 10%-',
 }
-
-
-autostart = {
-    'nm-applet': ['nm-applet'],
-    'xfce-polkit': ['/usr/libexec/xfce-polkit'],
-    'cbatticon': ['cbatticon'],
-    'dunst': ['dunst'],
-    'picom': ['picom'],
-    'xidlehook':[
-        f'{path.SCRIPTS}/xidlehook.py',
-        f'--lockscreen={path.SCRIPTS}/i3lock.py'],
-    # 'touchegg': ['touchegg', '--client']
-}

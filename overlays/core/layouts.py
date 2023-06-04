@@ -54,7 +54,8 @@ core_layouts = {
         wrap_focus_stacks=True
     ),
     'floating': layout.Floating(
-        **layout_conf,
+        border_focus=colors.scheme['base0C'],
+        border_normal=colors.scheme['base00'],
         fullscreen_border_width = 0,
         max_border_width = 0
     ),
@@ -251,5 +252,6 @@ floating_layout = layout.Floating(
         Match(title='branchdialog'),
         Match(title='pinentry'),
     ],
-    border_focus=colors.scheme['base0C']
+    border_focus=colors.scheme['base0C'],
+    border_normal=colors.scheme['base00'],
 )

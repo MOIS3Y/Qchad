@@ -13,6 +13,7 @@ from overlays import (
     keys,
     mod,
     layouts,
+    floating_layout,
     mouse,
     screens
 )

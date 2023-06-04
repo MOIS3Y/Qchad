@@ -25,7 +25,6 @@ https://github.com/guibou/nixGL
 I set QTILE_NIXGL=on by default in home-manager .xsession
 or from testq.sh when develop. 
 """
-
 import os
 import platform
 from libqtile.log_utils import logger
@@ -46,9 +45,6 @@ environment = {
 
     # Set default keys:
     'QTILE_MOD_KEY': 'mod4',
-
-    # Autostart apps:
-    'QTILE_AUTOSTART': 'nm-applet,picom,dunst,xfce-polkit,cbatticon,xidlehook',
     
     # Set interface properties:
     'QTILE_COLOR_SCHEME': 'catppuccin_mocha',
