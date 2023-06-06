@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg1103"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="battery-caution-charging.svg"
+   inkscape:export-filename="battery-missing.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#">
+  <sodipodi:namedview
+     id="namedview1105"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="false"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:lockguides="false"
+     inkscape:zoom="0.78038721"
+     inkscape:cx="458.74663"
+     inkscape:cy="489.50059"
+     inkscape:window-width="1526"
+     inkscape:window-height="1080"
+     inkscape:window-x="197"
+     inkscape:window-y="47"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1226" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1100">
+    <linearGradient
+       id="linearGradient4443"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4441" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#f38ba8;fill-opacity:1;stroke-width:0.235216"
+       id="rect495"
+       width="57.097977"
+       height="100.27045"
+       x="21.437897"
+       y="76.943214"
+       ry="7.4551721"
+       inkscape:label="power" />
+    <path
+       d="M 26.452832,168.88432 V 86.844173 c 0,-3.769578 3.041467,-6.836677 6.779544,-6.836677 H 78.401102 L 96.324511,59.49746 H 33.232376 c -14.978561,0 -27.1181809,12.26329 -27.1181809,27.346713 v 82.040147 c 0,15.10479 12.1396199,27.34672 27.1181809,27.34672 h 31.300317 l 7.326151,-20.51006 H 33.232376 c -3.737231,0 -6.779544,-3.07647 -6.779544,-6.83666 z M 236.61875,100.51752 V 86.844173 c 0,-15.104793 -12.13962,-27.346713 -27.11818,-27.346713 h -31.30032 l -7.32615,20.510036 h 38.62647 c 3.73808,0 6.77953,3.067099 6.77953,6.836677 v 82.040147 c 0,3.76957 -3.04145,6.83666 -6.77953,6.83666 h -45.16874 l -17.92341,20.51006 h 63.09215 c 14.97856,0 27.11818,-12.24193 27.11818,-27.34672 v -13.67337 c 7.48715,0 13.55909,-6.1231 13.55909,-13.67336 V 114.1909 c 0,-7.56308 -6.05921,-13.67338 -13.55909,-13.67338 z"
+       id="path107"
+       style="fill:#cdd6f4;fill-opacity:1;fill-rule:nonzero;stroke:#11111b;stroke-width:10.9247;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="sssccssssccsscssccssssccsscssc"
+       inkscape:label="bank" />
+    <path
+       d="m 175.64068,123.11561 c -2.03389,-3.6747 -5.29654,-6.02483 -9.27952,-6.02483 h -29.59271 l 25.60973,-71.742373 c 1.65505,-4.63185 -0.19856,-9.79354 -4.39823,-12.29748 -4.19738,-2.49709 -9.57188,-1.65576 -12.81756,2.04973 L 70.587356,120.55912 c -2.61436,3.02655 -3.24996,7.34218 -1.63982,11.01688 1.27118,3.67474 5.29653,6.02485 9.279523,6.02485 H 107.8198 l -25.609761,71.74239 c -1.65507,4.63184 0.19854,9.79353 4.39823,12.29748 1.61863,0.94858 3.39825,1.4186 5.17786,1.4186 2.83387,0 5.63975,-1.20154 7.63971,-3.47858 l 74.575001,-85.45849 c 2.65676,-3.01627 3.29234,-7.33189 1.63984,-11.00664 z"
+       id="path107-3"
+       style="fill:#cdd6f4;fill-opacity:1;fill-rule:nonzero;stroke:#11111b;stroke-width:10.9247;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="csccccccscccsccc"
+       inkscape:label="lightning" />
+  </g>
+  <metadata
+     id="metadata1224">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://artlibre.org/licence/lal" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://artlibre.org/licence/lal">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

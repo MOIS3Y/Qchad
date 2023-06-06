@@ -37,7 +37,6 @@ Path.SCRIPTS ...
 import os
 
 
-theme = os.getenv('QTILE_COLOR_SCHEME', 'catppuccin_mocha')
 os_id = os.getenv('QTILE_OS_ID', 'void')
 
 # Absolute path to qtile config:
@@ -50,10 +49,12 @@ ASSETS = f'{CONFIG}/assets'
 SCRIPTS = f'{CONFIG}/scripts'
 
 # Get theme-specific layout icons path:
-LAYOUTS = f'{ASSETS}/icons/layouts/{theme}'
+LAYOUTS = f'{ASSETS}/icons/layouts'
 
 # Get theme-specific logo:
-LOGO = f'{ASSETS}/icons/logo/{os_id}_{theme}.png'
+LOGO = f'{ASSETS}/icons/logo/{os_id}.png'
 
 # Get theme-specific power-button:
-POWER = f'{ASSETS}/icons/system/power_button_{theme}.png'
+POWER = f'{ASSETS}/icons/system/power_button.png'
+
+BATTERY = f'{ASSETS}/icons/system'

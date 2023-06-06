@@ -351,6 +351,13 @@ laptop_widgets = {
         fontsize=font.SIZE_WIDGETS,
         foreground=colors.scheme['base08'],
         step=5,
+    ),
+    'BatteryIcon': widget.BatteryIcon(
+        background=None,
+        # battery=0,
+        scale=1,
+        theme_path=path.BATTERY,
+        update_interval=60
     )
 }
 
@@ -397,11 +404,11 @@ extra_widgets = {
         colour_have_updates=colors.scheme['base0B'],
         colour_no_updates=colors.scheme['base0B'],
         custom_command='xbps-install -Mun',
-        display_format='{updates} pkgs',
+        display_format='  {updates} pkgs',
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
-        fmt='  {}',
-        no_update_string='0 pkgs',
+        fmt='{}',
+        no_update_string='',
         update_interval=60
     )
 }

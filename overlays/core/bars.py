@@ -9,6 +9,7 @@ from overlays.ui.theme import colors
 from .widgets import (
     common_widgets,
     extra_widgets,
+    laptop_widgets,
     monitoring_widgets,
     separator,
     spacer
@@ -22,7 +23,7 @@ separator_10px = separator(linewidth=0, padding=10, size_percent=100)
 current_widgets = [
     # ------- left ------
     common_widgets['Logo'],
-    separator_20px,
+    separator_10px,
     common_widgets['GroupBox'],
     separator_20px,
     common_widgets['CurrentLayoutIcon'],
@@ -51,7 +52,9 @@ current_widgets = [
     common_widgets['Timelabel'],
     common_widgets['Time'],
     common_widgets['DateBox'],
-    separator_20px,
+    separator_10px,
+    laptop_widgets['BatteryIcon'],
+    separator_10px,
     common_widgets['Power'],
 ]
 
@@ -62,7 +65,7 @@ chadBar = bar.Bar(
     size=23,
     background=colors.scheme['base00'],
     border_color=colors.scheme['base00'],
-    border_width=7,
+    border_width=8,
     margin=4,  # gaps around bar
     opacity=1,
 )

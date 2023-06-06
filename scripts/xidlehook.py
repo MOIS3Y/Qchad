@@ -102,14 +102,14 @@ def dimmer(direction=None):
     elif direction == 'down':
         start = 100
         target = -1
-        dim = -1
+        dim = -5
     else:
         start = 100
         target = 101
         dim = 1
 
     for step in range(start, target, dim):
-        cmd = f'xrandr --output {primary_display} --brightness {step/100}; '
+        cmd = f'xrandr --output {primary_display } --brightness {step/100}; '
         cmd_list.append(cmd)
 
     return (''.join(cmd_list))
@@ -134,13 +134,13 @@ def xidlehook_run(lockscreen):
             # un dim if user becomes active:
             '--timer',
             '15',
-            f'{dimmer("down")}{lockscreen}',
+            f'{lockscreen};{dimmer("down")}',
             f'{dimmer()}',
             # Wait 90 seconds or un dim if user becomes active:
             '--timer',
             '90',
-            '',
             f'{dimmer("up")}',
+            '',
             # Finally, suspend after it locks:
             '--timer',
             '10',
