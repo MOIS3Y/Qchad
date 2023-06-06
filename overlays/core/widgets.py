@@ -366,6 +366,24 @@ laptop_widgets = {
 # ██▄ █░█ ░█░ █▀▄ █▀█ ▄
 # -- -- -- -- -- -- --
 extra_widgets = {
+    'Notification': widget.GenPollText(
+        background=None,
+        foreground=colors.scheme['base09'],        
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        fmt='{}',
+        func=lambda: subprocess.run(
+            [f'{path.SCRIPTS}/notification.py', '--status'],
+            capture_output=True,
+            encoding='utf-8'
+        ).stdout.rstrip('\n'),
+        mouse_callbacks={
+            "Button1": lambda: qtile.cmd_spawn(
+                f'{path.SCRIPTS}/notification.py --toggle'
+            )
+        },
+        update_interval=None
+    ),
     'KeyboardLayout': custom_widgets.KeyboardLayout(
         background=colors.scheme['base00'],
         foreground=colors.scheme['base0D'],
@@ -380,6 +398,7 @@ extra_widgets = {
         foreground=colors.scheme['base0C'],        
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
+        fmt='{}',
         func=lambda: subprocess.check_output(
             path.SCRIPTS + "/caffeine.py"
         ).decode("utf-8"),

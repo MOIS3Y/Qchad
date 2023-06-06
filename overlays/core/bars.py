@@ -48,6 +48,8 @@ current_widgets = [
     common_widgets['TrayBox'],
     separator_20px,
     extra_widgets['Caffeine'],
+    separator_10px,
+    extra_widgets['Notification'],
     extra_widgets['KeyboardLayout'],
     common_widgets['Timelabel'],
     common_widgets['Time'],
