@@ -13,7 +13,8 @@ mouse = [
     Drag(
         [mod],
         'Button1',
-        lazy.window.set_position_floating(),
+        # see https://github.com/qtile/qtile/pull/4166
+        lazy.window.set_position(),  
         start=lazy.window.get_position()
     ),
     Drag(
