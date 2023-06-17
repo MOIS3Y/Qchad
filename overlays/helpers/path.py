@@ -48,13 +48,14 @@ ASSETS = f'{CONFIG}/assets'
 # Full path to scripts:
 SCRIPTS = f'{CONFIG}/scripts'
 
-# Get theme-specific layout icons path:
+# Get layout icons path:
 LAYOUTS = f'{ASSETS}/icons/layouts'
 
-# Get theme-specific logo:
+# Get logo:
 LOGO = f'{ASSETS}/icons/logo/{os_id}.png'
 
-# Get theme-specific power-button:
+# Get power-button:
 POWER = f'{ASSETS}/icons/system/power_button.png'
 
+# Get battery icons:
 BATTERY = f'{ASSETS}/icons/system'

@@ -2,13 +2,13 @@
 █▀▀ █▀█ █▀█ █░█ █▀█ █▀ ▀
 █▄█ █▀▄ █▄█ █▄█ █▀▀ ▄█ ▄
 http://docs.qtile.org/en/stable/manual/config/groups.html
--- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- 
+
 This module contains 7 groups.
 5 main groups [WEB, TERM, CHAT, DEV, EXTRA]
 2 additional [CALL, ART].
 Additional groups will appear in the list and will be available after launch
 applications associated with these groups.
--- -- -- -- -- -- -- --
 """
 from libqtile.config import Key, Group, Match
 from libqtile.command import lazy

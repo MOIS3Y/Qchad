@@ -8,10 +8,9 @@ import os
 
 from libqtile.config import Key
 from libqtile.command import lazy
-from libqtile.utils import guess_terminal
 
 from .groups import groups
-from overlays.helpers.utils import utils
+from overlays.helpers import utils
 
 
 mod = os.getenv('QTILE_MOD_KEY', 'mod4')
@@ -156,28 +155,28 @@ keys = [
     # -- -- -- -- volume -- -- -- --
     Key(
         [], 'XF86AudioLowerVolume',
-        lazy.spawn(utils['volume_lower']),
+        lazy.spawn(utils.VOLUME_LOWER),
         desc='Volume lower'
     ),
     Key(
         [], 'XF86AudioRaiseVolume',
-        lazy.spawn(utils['volume_raise']),
+        lazy.spawn(utils.VOLUME_RAISE),
         desc='Volume raise'
     ),
     Key(
         [], "XF86AudioMute",
-        lazy.spawn(utils['volume_muted']),
+        lazy.spawn(utils.VOLUME_MUTED),
         desc='Volume muted'
     ),
     # -- -- -- -- brightness -- -- -- --
     Key(
-        [], "XF86MonBrightnessUp",
-        lazy.spawn(utils['brightness_up']),
+        [], 'XF86MonBrightnessUp',
+        lazy.spawn(utils.BRIGHTNESS_UP),
         desc='Brightness up'
     ),
     Key(
-        [], "XF86MonBrightnessDown",
-        lazy.spawn(utils['brightness_down']),
+        [], 'XF86MonBrightnessDown',
+        lazy.spawn(utils.BRIGHTNESS_DOWN),
         desc='Brightness down'
     ),
 
@@ -186,29 +185,29 @@ keys = [
 
     Key(
         [mod], 'Return',
-        lazy.spawn(utils['terminal']),
+        lazy.spawn(utils.TERMINAL),
         desc='Terminal'
     ),
     Key(
         [mod], 'm',
-        lazy.spawn(utils['menu']),
+        lazy.spawn(utils.MENU),
         desc='Menu'
     ),
     Key(
         [mod], 'b',
-        lazy.spawn(utils['browser']),
+        lazy.spawn(utils.BROWSER),
         desc='Browser'
     ),
     Key(
         [mod], 'f',
-        lazy.spawn(utils['fmanager']),
+        lazy.spawn(utils.FMANAGER),
         desc='File manager'
     ),
     Key(
         [], 'Print',
-        lazy.spawn(utils['screenshot']),
-        desc='File manager'
-    ),
+        lazy.spawn(utils.SCREENSHOT),
+        desc='Screenshot app'
+    )
 ]
 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- --

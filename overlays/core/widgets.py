@@ -9,10 +9,11 @@ import subprocess
 from libqtile import qtile, widget
 from libqtile.lazy import lazy
 
-from overlays.helpers import path, font, custom_widgets
+
 from overlays.ui.theme import colors
 from overlays.ui.switcher import update_theme
-
+from overlays.helpers import path, font, custom_widgets, callbacks, utils
+# from overlays.helpers.utils import utils
 
 
 # █▀▀ █▀▄▀█ █▀█ ▀█▀ █▄█ ▀
@@ -155,8 +156,8 @@ common_widgets = {
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         start_opened=True,
-        text_closed='     ',
-        text_open='     ',
+        text_closed='     ',  # nf-fa-toggle_off
+        text_open='     ',  # nf-fa-toggle_on
         widgets=[
             widget.Systray(
             background=colors.scheme['base01'],
@@ -164,11 +165,6 @@ common_widgets = {
             mouse_callbacks={},
             padding=15
             ),
-            # separator(
-            #     background=colors.scheme['base02'],
-            #     linewidth=0,
-            #     padding=10,
-            #     size_percent=100)
         ]
     ),
     'Power': widget.Image(
@@ -177,11 +173,7 @@ common_widgets = {
         margin=3,
         margin_x=None,
         margin_y=None,
-        mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn(
-                path.SCRIPTS + "/power_menu.py"
-            )
-        },
+        mouse_callbacks={"Button1": callbacks.toggle_power_menu},
         rotate=0.0,
         scale=0.8
     )
@@ -345,7 +337,7 @@ laptop_widgets = {
     'Backlight': widget.Backlight(
         background=None,
         backlight_name='intel_backlight',
-        change_command='brightnessctl set {}%',
+        change_command=utils.BRIGHTNESS_SCROLL,
         fmt='  {}',  # nf-fa-adjust
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
@@ -366,55 +358,59 @@ laptop_widgets = {
 # ██▄ █░█ ░█░ █▀▄ █▀█ ▄
 # -- -- -- -- -- -- --
 extra_widgets = {
+    'Caffeine': widget.GenPollText(
+        name='caffeine',
+        background=None,
+        foreground=colors.scheme['base0C'],        
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        fmt='{}',
+        func=lambda: subprocess.run(
+            utils.CAFFEINE_STATUS,
+            shell=True,
+            capture_output=True,
+            encoding='utf-8'
+        ).stdout.rstrip('\n'),
+        mouse_callbacks={"Button1": callbacks.toggle_caffeine},
+        update_interval=1
+    ),
     'Notification': widget.GenPollText(
+        name='notification',
         background=None,
         foreground=colors.scheme['base09'],        
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',
         func=lambda: subprocess.run(
-            [f'{path.SCRIPTS}/notification.py', '--status'],
+            utils.NOTIFICATION_STATUS,
+            shell=True,
             capture_output=True,
             encoding='utf-8'
         ).stdout.rstrip('\n'),
-        mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn(
-                f'{path.SCRIPTS}/notification.py --toggle'
-            )
-        },
-        update_interval=None
+        mouse_callbacks={"Button1": callbacks.toggle_notification},
+        update_interval=10,
     ),
-    'KeyboardLayout': custom_widgets.KeyboardLayout(
-        background=colors.scheme['base00'],
-        foreground=colors.scheme['base0D'],
-        font=font.FAMILY,
-        fontsize=font.SIZE_WIDGETS,
-        text='UNK',
-        update_interval=0.1,
-        padding=20
-    ),
-    'Caffeine': widget.GenPollText(
+    'KeyboardLayout': widget.GenPollText(
+        name='xkbswitch',
         background=None,
-        foreground=colors.scheme['base0C'],        
+        foreground=colors.scheme['base0D'],        
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',
-        func=lambda: subprocess.check_output(
-            path.SCRIPTS + "/caffeine.py"
-        ).decode("utf-8"),
-        mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn(
-                path.SCRIPTS + "/caffeine.py --toggle"
-            )
-        },
-        update_interval=1
+        func=lambda: subprocess.run(
+            utils.KEYBOARD_LAYOUT_SHOW,
+            capture_output=True,
+            encoding='utf-8'
+        ).stdout.rstrip('\n').upper(),  # US, RU
+        mouse_callbacks={"Button1": callbacks.switch_keyboard_layout},
+        update_interval=1,
     ),
     'Switcher': widget.TextBox(
         background=colors.scheme['base0B'],
         foreground=colors.scheme['base00'],
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
-        mouse_callbacks={'Button1': update_theme},
+        mouse_callbacks={'Button1': callbacks.update_theme},
         padding=None,
         text='SWT ',
     ),
@@ -422,8 +418,8 @@ extra_widgets = {
         background=None,
         colour_have_updates=colors.scheme['base0B'],
         colour_no_updates=colors.scheme['base0B'],
-        custom_command='xbps-install -Mun',
-        display_format='  {updates} pkgs',
+        custom_command=utils.CHECK_UPDATES,
+        display_format='  {updates} pkgs',  # nf-fa-chevron_circle_up
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',

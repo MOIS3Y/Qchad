@@ -1,6 +1,8 @@
-# █▀▀ █░█ █▀ ▀█▀ █▀█ █▀▄▀█   █░█░█ █ █▀▄ █▀▀ █▀▀ ▀█▀ █▀
-# █▄▄ █▄█ ▄█ ░█░ █▄█ █░▀░█   ▀▄▀▄▀ █ █▄▀ █▄█ ██▄ ░█░ ▄█
-# -----------------------------------------------------
+"""
+█▀▀ █░█ █▀ ▀█▀ █▀█ █▀▄▀█  █░█░█ █ █▀▄ █▀▀ █▀▀ ▀█▀ █▀ ▀
+█▄▄ █▄█ ▄█ ░█░ █▄█ █░▀░█  ▀▄▀▄▀ █ █▄▀ █▄█ ██▄ ░█░ ▄█ ▄ 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+"""
 import subprocess
 
 from libqtile import bar, hook
@@ -67,6 +69,9 @@ class KeyboardLayout(base.ThreadPoolText):
     The source code of the class is taken from LeKSuS-04 
     for which many thanks to him:
     https://github.com/LeKSuS-04/my-arch/blob/master/dotfiles/qtile/screens.py
+
+    NOTE: right now I'm using the standard genPollText widget 
+    which does the same thing.
     """
     
     def __init__(self, **config):
@@ -80,13 +85,3 @@ class KeyboardLayout(base.ThreadPoolText):
     def next_keyboard(self):
         subprocess.run(['xkb-switch', '-n'])
         self.tick()
-
-
-class Caffeine(base.ThreadPoolText):
-
-    def __init__(self, **config):
-        super().__init__(**config)
-        self.add_callbacks({"Button1": self.caffeine_toggle})
-
-    def caffeine_toggle(self):
-        pass

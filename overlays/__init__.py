@@ -10,6 +10,3 @@ from .core import keys, mod
 from .core.layouts import layouts, floating_layout
 from .core.mouse import mouse
 from .core.screens import screens
-
-from .ui import colors
-from .helpers import font

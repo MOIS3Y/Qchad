@@ -18,13 +18,19 @@ which terminal is used by default
 
 utils:
 
-it is the dictionary from which applications are retrieved
-which will be given to hotkeys.
+сonstants that contain commands to run utilities or custom wrapper scripts
+
+import utils
+
+
+utils.TERMINAL
+utils.BROWSER ...
 """
 import os
 from libqtile.utils import guess_terminal
 
-from overlays.helpers import path
+from . import path
+from . import font
 
 
 # nixGL apps:
@@ -42,22 +48,36 @@ def check_terminal():
     return terminal
 
 
-utils = {
-    # Guess nixGL wrap utils:
-    'browser': nixGL('firefox'),
-    'terminal': nixGL(check_terminal()),
-    'telegram': nixGL('telegram-desktop'),
+color_scheme = os.getenv("QTILE_COLOR_SCHEME", "catppuccin_mocha")
 
-    # Normal utils:
-    'menu': 'rofi -show drun',
-    'screenshot': 'flameshot gui',
-    'mattermost': 'mattermost-desktop',
-    'fmanager': 'ranger',
 
-    # Hardware utils:
-    'volume_raise': 'pactl set-sink-volume @DEFAULT_SINK@ +5%',
-    'volume_lower': 'pactl set-sink-volume @DEFAULT_SINK@ -5%',
-    'volume_muted': 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
-    'brightness_up': 'brightnessctl set +10%',
-    'brightness_down': 'brightnessctl set 10%-',
-}
+# Guess nixGL wrap utils:
+BROWSER = nixGL('firefox')
+TERMINAL = nixGL(check_terminal())
+TELEGRAM = nixGL('telegram-desktop')
+
+# Normal utils:
+MENU = 'rofi -show drun'
+SCREENSHOT = 'flameshot gui'
+MATTERMOST = 'mattermost-desktop'
+FMANAGER = 'ranger'
+
+# Custom utils:
+CAFFEINE_STATUS = f'{path.SCRIPTS}/caffeine.py'
+CAFFEINE_TOGGLE = f'{path.SCRIPTS}/caffeine.py --toggle'
+LOCKSCREEN = f'{path.SCRIPTS}/lockscreen.py -s {color_scheme} -f {font.SYSTEM}'
+NOTIFICATION_STATUS = f'{path.SCRIPTS}/notification.py --status'
+NOTIFICATION_TOGGLE = f'{path.SCRIPTS}/notification.py --toggle'
+POWER_MENU = f'{path.SCRIPTS}/power_menu.py'
+CHECK_UPDATES = 'xbps-install -Mun'  # TODO: add check OS
+KEYBOARD_LAYOUT_SWITCH = 'xkb-switch -n'
+KEYBOARD_LAYOUT_SHOW = 'xkb-switch'
+
+# Hardware utils:
+VOLUME_RAISE = 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
+VOLUME_LOWER = 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+VOLUME_MUTED = 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+
+BRIGHTNESS_UP = 'brightnessctl set +10%'
+BRIGHTNESS_DOWN = 'brightnessctl set 10%-'
+BRIGHTNESS_SCROLL= 'brightnessctl set {}%'

@@ -48,6 +48,7 @@ environment = {
     
     # Set interface properties:
     'QTILE_COLOR_SCHEME': 'catppuccin_mocha',
+    'QTILE_FONT_SYSTEM': 'sans',
     'QTILE_FONT_FAMILY': 'JetBrainsMono Nerd Font Regular',
     'QTILE_FONT_SIZE_GROUPS': '16',
     'QTILE_FONT_SIZE_WIDGETS': '14',

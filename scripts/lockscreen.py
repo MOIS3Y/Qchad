@@ -12,7 +12,7 @@ Wrapper over i3lock-color with a choice of color schemes
 options:
   -h, --help                  show this help message and exit
   -s SCHEME, --scheme SCHEME  set color scheme name
-  -а FONT,   --font FONT      set font style
+  -f FONT,   --font FONT      set font style
   -t,        --themes         show available themes
   -v,        --version        show version
 
