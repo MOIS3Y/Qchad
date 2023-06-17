@@ -184,6 +184,11 @@ keys = [
     # █▀█ █▀▀ █▀▀ ▄
 
     Key(
+        [mod], "r",
+        lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"
+    ),
+    Key(
         [mod], 'Return',
         lazy.spawn(utils.TERMINAL),
         desc='Terminal'

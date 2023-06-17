@@ -27,6 +27,8 @@ current_widgets = [
     common_widgets['GroupBox'],
     separator_20px,
     common_widgets['CurrentLayoutIcon'],
+    separator_20px,
+    common_widgets['Prompt'],
 
     # ------- center ------
     spacer(lenght=3),

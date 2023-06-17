@@ -176,7 +176,25 @@ common_widgets = {
         mouse_callbacks={"Button1": callbacks.toggle_power_menu},
         rotate=0.0,
         scale=0.8
-    )
+    ),
+    'Prompt': widget.Prompt(
+        background=None,
+        foreground=colors.scheme['base0E'],
+        bell_style='visual',
+        cursor=True,
+        cursor_color=colors.scheme['base0E'],
+        cursorblink=0.5,
+        fmt=' {}',  # nf-cod-run_all
+        font=font.FAMILY,
+        fontsize=font.SIZE_WIDGETS,
+        ignore_dups_history=True,
+        max_history=100,
+        padding=None,
+        prompt='RUN: ',
+        record_history=True,
+        visual_bell_color=colors.scheme['base0E'],
+        visual_bell_time=0.2
+    ),
 }
 
 
