@@ -66,7 +66,8 @@ TELEGRAM = nixGL('telegram-desktop')
 MENU = 'rofi -show drun'
 SCREENSHOT = 'flameshot gui'
 MATTERMOST = 'mattermost-desktop'
-FMANAGER = 'ranger'
+FMANAGER = f'{TERMINAL} -e ranger'
+VOLUME_CONTROL = 'pavucontrol'
 
 # Custom utils:
 CAFFEINE_STATUS = f'{path.SCRIPTS}/caffeine.py'
@@ -74,6 +75,7 @@ CAFFEINE_TOGGLE = f'{path.SCRIPTS}/caffeine.py --toggle'
 LOCKSCREEN = f'{path.SCRIPTS}/lockscreen.py -s {color_scheme} -f {font.SYSTEM}'
 NOTIFICATION_STATUS = f'{path.SCRIPTS}/notification.py --status'
 NOTIFICATION_TOGGLE = f'{path.SCRIPTS}/notification.py --toggle'
+NOTIFICATION_HISTORY = 'dunstctl history-pop'
 POWER_MENU = f'{path.SCRIPTS}/power_menu.py'
 CHECK_UPDATES = check_updates()
 KEYBOARD_LAYOUT_SWITCH = 'xkb-switch -n'

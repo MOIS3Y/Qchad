@@ -313,7 +313,7 @@ sound_widgets = {
         limit_max_volume=True,
         markup=True,
         max_chars=0,
-        mouse_callbacks={},
+        mouse_callbacks={'Button3': callbacks.open_volume_control_app},
         padding=3,
         step=5,
         theme_path=None,
@@ -379,7 +379,7 @@ extra_widgets = {
     'Caffeine': widget.GenPollText(
         name='caffeine',
         background=None,
-        foreground=colors.scheme['base0C'],        
+        foreground=colors.scheme['base07'],        
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',
@@ -395,7 +395,7 @@ extra_widgets = {
     'Notification': widget.GenPollText(
         name='notification',
         background=None,
-        foreground=colors.scheme['base09'],        
+        foreground=colors.scheme['base07'],        
         font=font.FAMILY,
         fontsize=font.SIZE_WIDGETS,
         fmt='{}',
@@ -405,7 +405,10 @@ extra_widgets = {
             capture_output=True,
             encoding='utf-8'
         ).stdout.rstrip('\n'),
-        mouse_callbacks={"Button1": callbacks.toggle_notification},
+        mouse_callbacks={
+            'Button1': callbacks.toggle_notification,
+            'Button3': callbacks.show_notification_history_pop
+        },
         update_interval=10,
     ),
     'KeyboardLayout': widget.GenPollText(

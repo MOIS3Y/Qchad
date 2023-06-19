@@ -36,6 +36,11 @@ def toggle_notification(qtile):
 
 
 @lazy.function
+def show_notification_history_pop(qtile):
+    subprocess.run(utils.NOTIFICATION_HISTORY, shell=True)
+
+
+@lazy.function
 def switch_keyboard_layout(qtile):
     subprocess.run(utils.KEYBOARD_LAYOUT_SWITCH, shell=True)
     qtile.widgets_map['xkbswitch'].cmd_force_update()
@@ -49,3 +54,8 @@ def toggle_caffeine(qtile):
 @lazy.function
 def toggle_power_menu(qtile):
    subprocess.run(utils.POWER_MENU, shell=True)
+
+
+@lazy.function
+def open_volume_control_app(qtile):
+    qtile.cmd_spawn(utils.VOLUME_CONTROL)
