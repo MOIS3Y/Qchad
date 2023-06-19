@@ -10,8 +10,9 @@ This module contains 7 groups.
 Additional groups will appear in the list and will be available after launch
 applications associated with these groups.
 """
-from libqtile.config import Key, Group, Match
-from libqtile.command import lazy
+from libqtile.config import Group, Match, ScratchPad, DropDown
+
+from overlays.helpers import utils
 
 
 groups = [
@@ -77,5 +78,24 @@ groups = [
         persist=False,
         init=False,
         label=''  # nf-fa-paint_brush
-    )
+    ),
 ]
+
+
+groups.append(
+    ScratchPad(
+        name='scratchpad', 
+        dropdowns=[
+            DropDown('terminal',
+                utils.TERMINAL,
+                opacity=0.9,
+                x=0.24,
+                y=0.3,
+                width=0.5,
+                height=0.5,
+                on_focus_lost_hide=True
+            ),
+            # ...
+        ]
+    )
+)

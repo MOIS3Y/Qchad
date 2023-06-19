@@ -216,6 +216,10 @@ keys = [
 ]
 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+# █▀ █░█░█ ░░▄▀ █▀▄▀█ █░█░█   █▀▀ █▀█ █▀█ █░█ █▀█ █▀ ▀
+# ▄█ ▀▄▀▄▀ ▄▀░░ █░▀░█ ▀▄▀▄▀   █▄█ █▀▄ █▄█ █▄█ █▀▀ ▄█ ▄
+
 for i, group in enumerate(groups):
     actual_key = str(i + 1)
     keys.extend([
@@ -230,3 +234,14 @@ for i, group in enumerate(groups):
             desc=f'Move focused window to the group {group.name}'
         )
     ])
+
+# █▀ █▀▀ █▀█ ▄▀█ ▀█▀ █▀▀ █░█ █▀█ ▄▀█ █▀▄ ▀
+# ▄█ █▄▄ █▀▄ █▀█ ░█░ █▄▄ █▀█ █▀▀ █▀█ █▄▀ ▄
+
+keys.extend([
+    Key(
+        [mod], 't',
+        lazy.group['scratchpad'].dropdown_toggle('terminal'),
+        desc='Open hidden terminal1'
+    ),
+])
