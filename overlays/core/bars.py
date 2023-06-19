@@ -11,6 +11,7 @@ from .widgets import (
     extra_widgets,
     laptop_widgets,
     monitoring_widgets,
+    sound_widgets,
     separator,
     spacer
 )
@@ -46,8 +47,11 @@ current_widgets = [
     monitoring_widgets['DFHome'],
     monitoring_widgets['DFNix'],
     separator_10px,
+    sound_widgets['PulseVolume'],
+    separator_20px,
     common_widgets['TrayLabel'],
     common_widgets['TrayBox'],
+
     separator_20px,
     extra_widgets['Caffeine'],
     separator_20px,
@@ -58,9 +62,7 @@ current_widgets = [
     common_widgets['Timelabel'],
     common_widgets['Time'],
     common_widgets['DateBox'],
-    separator_10px,
-    # laptop_widgets['BatteryIcon'],
-    separator_10px,
+    separator_20px,
     common_widgets['Power'],
 ]
 

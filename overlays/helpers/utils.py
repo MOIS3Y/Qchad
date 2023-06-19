@@ -48,6 +48,12 @@ def check_terminal():
     return terminal
 
 
+def check_updates():
+    os_id = os.getenv('QTILE_OS_ID', None)
+    if os_id == 'void':
+        return 'xbps-install -Mun'
+
+
 color_scheme = os.getenv("QTILE_COLOR_SCHEME", "catppuccin_mocha")
 
 
@@ -69,7 +75,7 @@ LOCKSCREEN = f'{path.SCRIPTS}/lockscreen.py -s {color_scheme} -f {font.SYSTEM}'
 NOTIFICATION_STATUS = f'{path.SCRIPTS}/notification.py --status'
 NOTIFICATION_TOGGLE = f'{path.SCRIPTS}/notification.py --toggle'
 POWER_MENU = f'{path.SCRIPTS}/power_menu.py'
-CHECK_UPDATES = 'xbps-install -Mun'  # TODO: add check OS
+CHECK_UPDATES = check_updates()
 KEYBOARD_LAYOUT_SWITCH = 'xkb-switch -n'
 KEYBOARD_LAYOUT_SHOW = 'xkb-switch'
 
